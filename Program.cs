@@ -8,15 +8,10 @@
         static void Main(string[] args)
         {
             string directorioSalida = $"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}";
-            string nombreArchivoSalida = $"resumen_{DateTime.Now.Year:D4}{DateTime.Now.Month:D2}{DateTime.Now.Day:D2}_{DateTime.Now.Hour:D2}{DateTime.Now.Minute:D2}{DateTime.Now.Second:D2}.txt";
+            string nombreArchivoSalida = $"resumen_{DateTime.Now.Year:D4}{DateTime.Now.Month:D2}{DateTime.Now.Day:D2}_{DateTime.Now.Hour:D2}{DateTime.Now.Minute:D2}{DateTime.Now.Second:D2}.csv";
             string ruta = $"{directorioSalida}\\{nombreArchivoSalida}";
 
-            FileStream archivo = File.Create(ruta);
-            archivo.Close();
-
-            EscribirEnArchivo(ruta, $"Conteo de archivos en {Directory.GetCurrentDirectory()} y sus sub-directorios");
-            EscribirEnArchivo(ruta, "");
-            
+            EscribirEnArchivo(ruta, $"directorio,cant_archivos");
             EscribirContenido(ruta, Directory.GetCurrentDirectory());
             
         }
@@ -29,9 +24,7 @@
                 EscribirContenido(ruta, dir);
             }
 
-            EscribirEnArchivo(ruta, nombreDirectorio);
-            EscribirEnArchivo(ruta, $"{Directory.GetFiles(nombreDirectorio).Length} archivos");
-            EscribirEnArchivo(ruta, "");
+            EscribirEnArchivo(ruta, $"{nombreDirectorio},{Directory.GetFiles(nombreDirectorio).Length}");
 
         }
 
@@ -41,11 +34,6 @@
             file.WriteLine(contenido);
         }
 
-        static void CrearArchivo(String ruta)
-        {
-            FileStream archivo = File.Create(ruta);
-            archivo.Close();
-        }
     }
 
     
